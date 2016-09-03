@@ -22,7 +22,7 @@ public class PlayerControl : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            transform.Translate(new Vector3(0, 0.5f, 0));
+            transform.Translate(new Vector3(0, 0.3f, 0));
         }
     }
 }
