@@ -6,9 +6,10 @@ public class OwlBehaviour : MonoBehaviour {
     public Transform Player;
     bool attacking = false;
     bool goUp = false;
+    float x;
 
 	void Start () {
-	    
+        x = -7;
 	}
 	
 	void Update () {
@@ -21,7 +22,8 @@ public class OwlBehaviour : MonoBehaviour {
 
         if (attacking == true)
         {
-            transform.Translate(new Vector3(0f, -0.3f, 0f));
+            x += Time.deltaTime*0.0000001f ;
+            transform.Translate(new Vector3(transform.position.x+x, -(0.4f * (x * x) + 1f), 0f));
         }
 
         if (goUp == true)
