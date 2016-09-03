@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerControl : MonoBehaviour {
 
+    public static bool isInLight;
+
     public float speed;
     Rigidbody2D Rigid;
     bool jump = false;
@@ -41,6 +43,14 @@ public class PlayerControl : MonoBehaviour {
         if (coll.gameObject.tag == "ground")
         {
             jump = false;
+        }
+    }
+
+    void OnTriggerEnter2D(Collision2D other)
+    {
+        if(other.gameObject.tag == "light")
+        {
+
         }
     }
 
