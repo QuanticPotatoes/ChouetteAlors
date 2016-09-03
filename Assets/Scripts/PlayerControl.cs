@@ -46,16 +46,19 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter2D(Collision2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag == "light")
         {
-
+            isInLight = true;
         }
     }
 
-    /*IEnumerator EnableGravity()
+    void OnTriggerExit2D(Collider2D other)
     {
-        yield return new WaitForSeconds(0.3f);
-    }*/
+        if (other.gameObject.tag == "light")
+        {
+            isInLight = false;
+        }
+    }
 }
