@@ -50,12 +50,15 @@ public class PlayerControl : MonoBehaviour {
     {
         if(other.gameObject.tag == "light")
         {
-
+            isInLight = true;
         }
     }
 
-    /*IEnumerator EnableGravity()
+    void OnTriggerExit2D(Collider2D other)
     {
-        yield return new WaitForSeconds(0.3f);
-    }*/
+        if (other.gameObject.tag == "light")
+        {
+            isInLight = false;
+        }
+    }
 }
