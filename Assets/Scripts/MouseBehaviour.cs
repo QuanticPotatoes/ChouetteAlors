@@ -116,6 +116,13 @@ public class MouseBehaviour : MonoBehaviour {
         {
             jump = true;
         }
+
+        if(coll.gameObject.tag == "owl")
+        {
+            gameObject.SetActive(false);
+            if (!Pooling.miceList.Contains(this.gameObject)) Pooling.miceList.Add(this.gameObject);
+            RemoveMouse();
+        }
     }
 
     void OnCollisionExit2D(Collision2D coll)

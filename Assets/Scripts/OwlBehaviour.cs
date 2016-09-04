@@ -5,14 +5,15 @@ public class OwlBehaviour : MonoBehaviour {
 
     public Transform Player;
     bool attacking = false;
-    bool goUp = false;
     public float startTime;
     public float elapsedTime;
     float x;
     float startx;
+    int killNumber;
 
 	void Start () {
         startx = -20f;
+        killNumber = 0;
 	}
 	
 	void Update () {
@@ -43,30 +44,19 @@ public class OwlBehaviour : MonoBehaviour {
         {
             startTime = Time.time;
         }
-
-        if (goUp == true)
-        {
-            transform.Translate(new Vector3(0f, 0.1f, 0f));
-        }
     }
 
     void OnCollisionEnter2D (Collision2D coll)
     {
         if(coll.gameObject.tag == "mouse")
         {
-            attacking = false;
-            goUp = true;
-        }
+            killNumber++;
 
-        if (coll.gameObject.tag == "ground")
-        {
-            attacking = false;
-            goUp = true;
-        }
-
-        if (coll.gameObject.tag == "stop")
-        {
-            goUp = false;
+            if(killNumber == 3)
+            {
+                gameObject.tag = "Untagged";
+                StartCoroutine("NameOwl");
+            }
         }
     }
 
@@ -74,5 +64,12 @@ public class OwlBehaviour : MonoBehaviour {
     {
         yield return new WaitForSeconds(1f);
         attacking = true;
+    }
+
+    IEnumerator NameOwl()
+    {
+        yield return new WaitForSeconds(2f);
+        gameObject.tag = "owl";
+        killNumber = 0;
     }
 }

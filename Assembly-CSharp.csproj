@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\Camera.cs" />
      <Compile Include="Assets\Scripts\MouseBehaviour.cs" />
      <Compile Include="Assets\Scripts\OwlBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Parralax.cs" />
      <Compile Include="Assets\Scripts\PlayerControl.cs" />
      <Compile Include="Assets\Scripts\PlayerMouseController.cs" />
      <Compile Include="Assets\Scripts\Pooling.cs" />
