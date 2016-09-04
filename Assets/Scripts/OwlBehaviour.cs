@@ -58,6 +58,12 @@ public class OwlBehaviour : MonoBehaviour {
                 StartCoroutine("NameOwl");
             }
         }
+
+        if (coll.gameObject.tag == "hide")
+        {
+            gameObject.tag = "Untagged";
+            StartCoroutine("NameOwl");
+        }
     }
 
     IEnumerator Attack()
