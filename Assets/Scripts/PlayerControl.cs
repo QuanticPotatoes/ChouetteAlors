@@ -11,7 +11,7 @@ public class PlayerControl : MonoBehaviour {
 
 	void Start () {
         Rigid = GetComponent<Rigidbody2D>();
-	}
+    }
 	
 	void Update () {
 	    if(Input.GetKey(KeyCode.RightArrow))
