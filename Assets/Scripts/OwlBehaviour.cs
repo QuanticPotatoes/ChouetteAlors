@@ -6,10 +6,13 @@ public class OwlBehaviour : MonoBehaviour {
     public Transform Player;
     bool attacking = false;
     bool goUp = false;
+    public float startTime;
+    public float elapsedTime;
     float x;
+    float startx;
 
 	void Start () {
-        x = -7;
+        startx = -20f;
 	}
 	
 	void Update () {
@@ -22,8 +25,23 @@ public class OwlBehaviour : MonoBehaviour {
 
         if (attacking == true)
         {
-            x += Time.deltaTime*0.0000001f ;
-            transform.Translate(new Vector3(transform.position.x+x, -(0.4f * (x * x) + 1f), 0f));
+
+            x = - (Time.time - startTime) * 20f;
+            transform.position = new Vector2(PlayerMouseController.Player.transform.position.x +  x - startx ,0.05f*((x - startx) * (x - startx)) - 1f);
+
+            if (x < -50f)
+            {
+                x = 0;
+                
+                attacking = false;
+            }
+            {
+
+            }
+        }
+        else
+        {
+            startTime = Time.time;
         }
 
         if (goUp == true)
