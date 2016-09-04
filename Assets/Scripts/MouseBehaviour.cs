@@ -136,6 +136,8 @@ public class MouseBehaviour : MonoBehaviour {
     void RemoveMouse()
     {
         PlayerMouseController.MouseNumber--;
+        TrapBehavior.mass += 200;
+        Debug.Log(PlayerMouseController.MouseNumber);
     }
 
 }
