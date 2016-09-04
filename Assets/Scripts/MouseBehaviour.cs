@@ -103,7 +103,11 @@ public class MouseBehaviour : MonoBehaviour {
 
             if(Random.Range(0,2) == 0)
             {
-                if (jump == true) Rigid.AddForce(new Vector2(Random.Range(-10, 10), Random.Range(40, 60)));
+                if (jump == true)
+                {
+                    //Rigid.AddForce(new Vector2(Random.Range(-10, 10), Random.Range(40, 60)));
+
+                }
             }
 
             yield return null;
@@ -112,6 +116,7 @@ public class MouseBehaviour : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
+        
         if (coll.gameObject.tag == "ground")
         {
             jump = true;
@@ -127,16 +132,18 @@ public class MouseBehaviour : MonoBehaviour {
 
     void OnCollisionExit2D(Collision2D coll)
     {
+        Debug.Log(coll.gameObject.tag);
         if (coll.gameObject.tag == "ground")
         {
             jump = false;
+
         }
     }
 
     void RemoveMouse()
     {
         PlayerMouseController.MouseNumber--;
-        TrapBehavior.mass += 200;
+        TrapBehavior.mass += 20;
         Debug.Log(PlayerMouseController.MouseNumber);
     }
 
