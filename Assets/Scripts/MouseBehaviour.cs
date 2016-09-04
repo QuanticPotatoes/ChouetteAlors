@@ -5,9 +5,14 @@ public class MouseBehaviour : MonoBehaviour {
 
     private Collider2D coll;
     private bool isEncounter = false;
+    private bool isPlay = false;
     private Vector2 MousePosition;
     Rigidbody2D Rigid;
     private float distance;
+    private int previousClip;
+    AudioSource audiosource;
+    public AudioClip[] MouseClip;
+    private bool jump = false;
 
     float mDroneSpeed = 10.0f;
 
@@ -21,10 +26,15 @@ public class MouseBehaviour : MonoBehaviour {
         Rigid = GetComponent<Rigidbody2D>();
         MousePosition = new Vector2(transform.position.x,transform.position.y);
         rigidbody = GetComponent<Rigidbody2D>();
-	}
+        audiosource = GetComponent<AudioSource>();
+        StartCoroutine(MouseSound());
+        StartCoroutine(MouseJump());
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
+
         if (isEncounter)
         {
             Vector2 direction = PlayerMouseController.Player.transform.position - transform.position;
@@ -35,9 +45,13 @@ public class MouseBehaviour : MonoBehaviour {
             Vector2 velocity = direction * mDroneSpeed;
 
            distance = Vector2.Distance(PlayerMouseController.Player.transform.position, transform.position);
-           rigidbody.velocity = new Vector2(velocity.x, rigidbody.velocity.y);
+           rigidbody.velocity = new Vector2(velocity.x * ( Mathf.Pow(distance/10,3) - 2f * distance/10 + 2f), rigidbody.velocity.y);
 
         }
+
+
+
+        
     }
 
     
@@ -59,6 +73,58 @@ public class MouseBehaviour : MonoBehaviour {
 
     }
 
+    public IEnumerator MouseSound()
+    {
+        while (true)
+        {
+
+
+            yield return new WaitForSeconds(Random.Range(1.5f,5.5f));
+           
+           if (Random.Range(0, 6) == 0)
+            {
+
+                while (Random.Range(0, MouseClip.Length) == previousClip);
+
+                
+                audiosource.clip = MouseClip[previousClip = Random.Range(0, MouseClip.Length)];
+                audiosource.Play();
+            }
+            yield return null;
+           
+        }
+    }
+
+    public IEnumerator MouseJump()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.25f);
+
+            if(Random.Range(0,2) == 0)
+            {
+                if (jump == true) Rigid.AddForce(new Vector2(Random.Range(-10, 10), Random.Range(40, 60)));
+            }
+
+            yield return null;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "ground")
+        {
+            jump = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag == "ground")
+        {
+            jump = false;
+        }
+    }
 
     void RemoveMouse()
     {
